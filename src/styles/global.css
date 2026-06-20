@@ -1,0 +1,156 @@
+/* ============================================================
+   Rodinná farma Oto — design tokens & base
+   Concept: "Rovno z dvora" — artisanal jar-label warmth.
+   ============================================================ */
+
+:root {
+  /* Palette */
+  --beeswax:    #FBF3E2;  /* page background — warm, golden cream */
+  --beeswax-2:  #F4E7C9;  /* slightly deeper fill */
+  --honey:      #D98A2B;  /* primary amber accent */
+  --honey-deep: #B86C16;  /* darker amber for hovers */
+  --bark:       #2A1E12;  /* near-black, warm — body text & dark sections */
+  --bark-soft:  #4A3826;  /* muted brown text */
+  --amber-deep: #7A3B0E;  /* headings on light */
+  --herb:       #4E5B3A;  /* herb/olive green — the "bio" note */
+  --herb-light: #6E7C4F;
+
+  /* Type */
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Type scale */
+  --step--1: clamp(0.83rem, 0.79rem + 0.2vw, 0.94rem);
+  --step-0:  clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+  --step-1:  clamp(1.3rem, 1.2rem + 0.5vw, 1.6rem);
+  --step-2:  clamp(1.7rem, 1.5rem + 1vw, 2.3rem);
+  --step-3:  clamp(2.2rem, 1.8rem + 2vw, 3.4rem);
+  --step-4:  clamp(2.9rem, 2.1rem + 4vw, 5.6rem);
+
+  /* Layout */
+  --container: 1140px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  color: var(--bark);
+  background: var(--beeswax);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: var(--amber-deep);
+  /* Fraunces optical/soft axes give the warm, handcrafted feel */
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 40, "WONK" 1;
+}
+
+a { color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+/* Shared layout helpers */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  font-family: var(--body);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--herb);
+}
+
+/* Wax-seal stamp — the signature mark */
+.seal {
+  display: inline-grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--honey), var(--amber-deep));
+  color: var(--beeswax);
+  text-align: center;
+  box-shadow: inset 0 0 0 2px rgba(251, 243, 226, 0.35),
+              inset 0 0 0 6px rgba(122, 59, 14, 0.35);
+  position: relative;
+}
+.seal span {
+  font-family: var(--display);
+  font-size: 0.7rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+.seal small {
+  display: block;
+  font-family: var(--body);
+  font-size: 0.42rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-top: 3px;
+  opacity: 0.85;
+}
+
+/* Buttons */
+.btn {
+  --b: var(--honey);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: var(--step-0);
+  letter-spacing: 0.01em;
+  padding: 0.85em 1.6em;
+  border-radius: 100px;
+  background: var(--b);
+  color: var(--bark);
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 24px -12px rgba(122, 59, 14, 0.7);
+}
+.btn:hover { background: var(--honey-deep); transform: translateY(-2px); color: var(--beeswax); }
+.btn--ghost {
+  background: transparent;
+  border-color: rgba(42, 30, 18, 0.25);
+  box-shadow: none;
+  color: var(--bark);
+}
+.btn--ghost:hover { background: rgba(42, 30, 18, 0.06); border-color: var(--bark); color: var(--bark); }
+
+/* Accessibility floor */
+:focus-visible {
+  outline: 3px solid var(--herb);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
