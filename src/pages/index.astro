@@ -40,24 +40,27 @@ const produkty = [
     ceny: [{ suma: '3,50 €', za: '10 ks' }],
     ilustracia: 'vajicka',
   },
-  {
-    id: 'sliepka',
-    nazov: 'Sliepka',
-    tag: 'Hydina',
-    popis:
-      'Vyčistená a vypitvaná, pripravená rovno do hrnca. Sliepka, ktorá behala po tráve, nie po klietke.',
-    ceny: [{ suma: '5 €', za: 'kus (cca 800 g)' }],
-    ilustracia: 'sliepka',
-  },
-  {
-    id: 'kohut',
-    nazov: 'Kohút',
-    tag: 'Hydina',
-    popis:
-      'Väčší a výdatný — na poctivú nedeľnú polievku či pečienku pre celú rodinu.',
-    ceny: [{ suma: '16 €', za: 'kus (cca 2 kg)' }],
-    ilustracia: 'kohut',
-  },
+  // Mäso (hydina) je zatiaľ vypnuté — Oto ho na webe (zatiaľ) nechce.
+  // Na opätovné zapnutie stačí odkomentovať tieto dva produkty (ilustrácie
+  // 'sliepka'/'kohut' aj ich štýly v <style> ostávajú pripravené v kóde).
+  // {
+  //   id: 'sliepka',
+  //   nazov: 'Sliepka',
+  //   tag: 'Hydina',
+  //   popis:
+  //     'Vyčistená a vypitvaná, pripravená rovno do hrnca. Sliepka, ktorá behala po tráve, nie po klietke.',
+  //   ceny: [{ suma: '5 €', za: 'kus (cca 800 g)' }],
+  //   ilustracia: 'sliepka',
+  // },
+  // {
+  //   id: 'kohut',
+  //   nazov: 'Kohút',
+  //   tag: 'Hydina',
+  //   popis:
+  //     'Väčší a výdatný — na poctivú nedeľnú polievku či pečienku pre celú rodinu.',
+  //   ceny: [{ suma: '16 €', za: 'kus (cca 2 kg)' }],
+  //   ilustracia: 'kohut',
+  // },
 ];
 
 const kontakt = {
@@ -180,7 +183,7 @@ function renderIlustracia(typ: string): string {
     <title>{farma.nazov} — bio med a domáce vajíčka rovno z dvora</title>
     <meta
       name="description"
-      content="Malá rodinná farma Na Lúke. Miešaný lesný med, včelí peľ, domáce vajíčka z voľného výbehu a domáca hydina. Poctivé domáce dobroty rovno z nášho dvora — od roku 2009."
+      content="Malá rodinná farma Na Lúke. Miešaný lesný med, včelí peľ a domáce vajíčka z voľného výbehu. Poctivé domáce dobroty rovno z nášho dvora — od roku 2009."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
