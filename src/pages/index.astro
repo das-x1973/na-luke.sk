@@ -61,13 +61,11 @@ const produkty = [
 ];
 
 const kontakt = {
-  telefon: '+421 900 000 000',
-  telefonHref: '+421900000000',
-  email: 'ahoj@farmaoto.sk',
+  email: 'ahoj@na-luke.sk',
   adresa: ['Dolná 12', '000 00 Vaša obec', 'Slovensko'],
   hodiny: [
     ['Sobota', '9:00 – 12:00'],
-    ['Po – Pia', 'Po telefonickej dohode'],
+    ['Po – Pia', 'Po dohode vopred'],
     ['Nedeľa', 'Zatvorené'],
   ],
 };
@@ -372,19 +370,16 @@ function renderIlustracia(typ: string): string {
             <p class="eyebrow">Ozvite sa</p>
             <h2 class="section__title">Kde nás nájdete</h2>
             <p class="section__sub">
-              Najlepšie je zavolať vopred — otvoríme bránu a porozprávame sa pri
-              pohári medu.
+              Najlepšie je napísať vopred — ozveme sa, otvoríme bránu a
+              porozprávame sa pri pohári medu.
             </p>
           </header>
 
           <div class="contact__grid reveal">
-            <a class="contact__card" href={`tel:${kontakt.telefonHref}`}>
-              <span class="contact__label">Telefón</span>
-              <span class="contact__value">{kontakt.telefon}</span>
-            </a>
-            <a class="contact__card" href={`mailto:${kontakt.email}`}>
-              <span class="contact__label">E-mail</span>
+            <a class="contact__card contact__card--primary" href={`mailto:${kontakt.email}`}>
+              <span class="contact__label">Napíšte nám</span>
               <span class="contact__value">{kontakt.email}</span>
+              <span class="contact__hint">Odpovedáme zvyčajne do dňa–dvoch →</span>
             </a>
             <div class="contact__card">
               <span class="contact__label">Adresa</span>
@@ -437,6 +432,12 @@ function renderIlustracia(typ: string): string {
         );
         items.forEach((el) => io.observe(el));
       }
+
+      // Jemný tieň navigácie po odscrollovaní
+      const nav = document.querySelector('.nav');
+      const onScroll = () => nav?.classList.toggle('is-scrolled', window.scrollY > 8);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
     </script>
   </body>
 </html>
@@ -450,6 +451,11 @@ function renderIlustracia(typ: string): string {
     background: color-mix(in srgb, var(--beeswax) 86%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(122, 59, 14, 0.12);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .nav.is-scrolled {
+    background: color-mix(in srgb, var(--beeswax) 94%, transparent);
+    box-shadow: 0 8px 26px -18px rgba(42, 30, 18, 0.6);
   }
   .nav__inner {
     display: flex;
@@ -536,13 +542,32 @@ function renderIlustracia(typ: string): string {
   .hero__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
   .hero__art { position: relative; display: grid; place-items: center; }
-  .dipper { width: clamp(150px, 22vw, 220px); height: auto; filter: drop-shadow(0 22px 30px rgba(122, 59, 14, 0.28)); }
+  /* Soft backdrop disc so the dipper sits on a stage instead of floating */
+  .hero__art::before {
+    content: '';
+    grid-area: 1 / 1;
+    width: min(86%, 340px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 38%, #FCEFCB, #F0DCA1);
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), 0 30px 60px -30px rgba(122, 59, 14, 0.4);
+    z-index: 0;
+  }
+  .dipper {
+    grid-area: 1 / 1;
+    position: relative;
+    z-index: 1;
+    width: clamp(150px, 22vw, 220px);
+    height: auto;
+    filter: drop-shadow(0 22px 30px rgba(122, 59, 14, 0.28));
+  }
   .hero__seal {
     position: absolute;
     right: -6px;
     bottom: 8%;
     transform: rotate(-12deg);
     width: 96px; height: 96px;
+    z-index: 2;
   }
 
   .drip { transform-origin: 110px 262px; }
@@ -685,6 +710,22 @@ function renderIlustracia(typ: string): string {
     transition: border-color 0.25s ease, transform 0.25s ease;
   }
   a.contact__card:hover { border-color: var(--honey); transform: translateY(-4px); }
+  /* Email is the only contact channel — promote it to the hero card */
+  .contact__card--primary {
+    background: var(--bark);
+    border-color: transparent;
+    color: var(--beeswax);
+    justify-content: center;
+    box-shadow: 0 18px 36px -22px rgba(42, 30, 18, 0.8);
+  }
+  .contact__card--primary .contact__label { color: #E9C46A; }
+  .contact__card--primary .contact__value { color: var(--beeswax); word-break: break-word; }
+  a.contact__card--primary:hover { border-color: transparent; background: #382819; }
+  .contact__hint {
+    font-size: var(--step--1);
+    color: rgba(251, 243, 226, 0.65);
+    margin-top: 0.2rem;
+  }
   .contact__label {
     font-size: 0.68rem;
     font-weight: 700;
