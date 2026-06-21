@@ -64,8 +64,8 @@ const produkty = [
 ];
 
 const kontakt = {
-  email: 'ahoj@na-luke.sk',
-  adresa: ['Dolná 12', '000 00 Vaša obec', 'Slovensko'],
+  email: 'lucnydedko@gmail.com',
+  adresa: ['Nízna Slaná', 'Slovensko'],
   hodiny: [
     ['Sobota', '9:00 – 12:00'],
     ['Po – Pia', 'Po dohode vopred'],
@@ -410,7 +410,7 @@ function renderIlustracia(typ: string): string {
       <div class="container footer__inner">
         <div class="seal footer__seal"><span>BIO<small>Est. {farma.zalozene}</small></span></div>
         <p class="footer__name">{farma.nazov}</p>
-        <p class="footer__note">Vyrobené s láskou na vidieku · {kontakt.adresa[2]}</p>
+        <p class="footer__note">Vyrobené s láskou na vidieku · {kontakt.adresa[0]}</p>
         <p class="footer__copy">© {new Date().getFullYear()} {farma.nazov}</p>
       </div>
     </footer>
