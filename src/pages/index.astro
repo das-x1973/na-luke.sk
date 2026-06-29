@@ -73,6 +73,30 @@ const kontakt = {
   ],
 };
 
+// ── Objednávka a doručenie (med a peľ poštou, cez Packetu) ──────────────
+// Posielame iba med a včelí peľ; vajíčka sú len na osobný odber.
+const objednavka = {
+  kroky: [
+    { nazov: 'Napíšte', text: 'Pošlite nám e-mail s tým, čo a koľko by ste chceli — med alebo včelí peľ.' },
+    { nazov: 'Potvrdíme', text: 'Ozveme sa s dostupnosťou, cenou a poštovným podľa Packety.' },
+    { nazov: 'Zaplatíte', text: 'Bankovým prevodom, na dobierku, alebo ako sa dohodneme.' },
+    { nazov: 'Pošleme', text: 'Zabalíme a odošleme cez Packetu — poháre tak, aby cestu zvládli v poriadku.' },
+  ],
+  zony: [
+    { kod: 'SK', nazov: 'Slovensko', text: 'Na Packeta výdajné miesto alebo na adresu, zvyčajne do 2–3 pracovných dní.', cena: 'poštovné podľa Packety' },
+    { kod: 'CZ', nazov: 'Česko', text: 'Posielame aj k susedom — slovenský med si cestu do Česka rád nájde.', cena: 'poštovné podľa Packety' },
+    { kod: 'Z dvora', nazov: 'Osobný odber', text: 'Med, peľ aj čerstvé vajíčka si vyzdvihnete priamo na farme v Nižnej Slanej.', cena: 'bez poštovného' },
+  ],
+  platby: [
+    'Bankový prevod',
+    'Dobierka — platba pri prevzatí',
+    'Prípadne sa dohodneme v e-maile',
+  ],
+  // DOPLNIŤ skutočný IBAN. Kým je prázdny, na stránke sa namiesto čísla
+  // zobrazí „platobné údaje pošleme v e-maile“ (nezverejňujeme falošný IBAN).
+  iban: '',
+};
+
 // Ručne kreslené SVG ilustrácie pre produktové karty (žiadne externé obrázky).
 function renderIlustracia(typ: string): string {
   const jar = (telo: string, lid: string) => `
@@ -208,6 +232,7 @@ function renderIlustracia(typ: string): string {
         <nav class="nav__links" aria-label="Hlavné menu">
           <a href="#produkty">Produkty</a>
           <a href="#o-nas">O farme</a>
+          <a href="#objednat">Objednať</a>
           <a href="#kontakt" class="nav__cta">Kontakt</a>
         </nav>
       </div>
@@ -361,6 +386,63 @@ function renderIlustracia(typ: string): string {
                   <ellipse cx="-6" cy="-6" rx="6" ry="3.5" fill="#fff" opacity="0.7" />
                 </g>
               </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Objednávka a doručenie ───────────────────────────────── -->
+      <section class="section order" id="objednat">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Objednávka a doručenie</p>
+            <h2 class="section__title">Med a peľ pošleme až k vám</h2>
+            <p class="section__sub">
+              Med a včelí peľ radi pošleme po Slovensku aj do Česka cez Packetu.
+              Čerstvé vajíčka nájdete priamo na farme. Žiadny zložitý e-shop —
+              stačí napísať e-mail.
+            </p>
+          </header>
+
+          <ol class="steps reveal">
+            {objednavka.kroky.map((k, i) => (
+              <li class="step">
+                <span class="step__num">{i + 1}</span>
+                <h3 class="step__title">{k.nazov}</h3>
+                <p class="step__text">{k.text}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div class="zones reveal">
+            {objednavka.zony.map((z) => (
+              <article class="zone">
+                <span class="zone__kod">{z.kod}</span>
+                <h3 class="zone__nazov">{z.nazov}</h3>
+                <p class="zone__text">{z.text}</p>
+                <p class="zone__cena">{z.cena}</p>
+              </article>
+            ))}
+          </div>
+
+          <div class="order__cta reveal">
+            <div class="order__pay">
+              <span class="contact__label">Platba</span>
+              <ul class="paylist">
+                {objednavka.platby.map((p) => <li>{p}</li>)}
+              </ul>
+              {objednavka.iban ? (
+                <p class="order__paytext">Bankový prevod — IBAN <strong>{objednavka.iban}</strong></p>
+              ) : (
+                <p class="order__paynote">Platobné údaje pošleme v potvrdzujúcom e-maile.</p>
+              )}
+              <p class="order__paynote">Do poznámky uveďte svoje meno — nech vieme, čí balík chystáme.</p>
+            </div>
+            <div class="order__actions">
+              <a
+                href={`mailto:${kontakt.email}?subject=${encodeURIComponent('Objednávka — Na Lúke')}`}
+                class="btn"
+              >Objednať e-mailom</a>
             </div>
           </div>
         </div>
@@ -742,6 +824,104 @@ function renderIlustracia(typ: string): string {
   .hours li { display: flex; justify-content: space-between; gap: 1rem; font-size: var(--step-0); }
   .hours li span:first-child { color: var(--bark-soft); font-weight: 600; }
   .hours li span:last-child { color: var(--amber-deep); }
+
+  /* ── Objednávka a doručenie ─────────────────────────────────── */
+  .order { background: var(--beeswax-2); }
+  .steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: clamp(1.2rem, 2.5vw, 1.8rem);
+    margin-bottom: clamp(2.2rem, 5vw, 3.2rem);
+  }
+  .step {
+    background: #fff;
+    border: 1px solid rgba(122, 59, 14, 0.12);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.4rem 1.6rem;
+  }
+  .step__num {
+    display: inline-grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: var(--honey);
+    color: var(--bark);
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.9rem;
+  }
+  .step__title { font-size: var(--step-1); margin-bottom: 0.4rem; }
+  .step__text { color: var(--bark-soft); font-size: var(--step-0); }
+
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(1rem, 2vw, 1.4rem);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .zone {
+    background: #fff;
+    border: 1px solid rgba(122, 59, 14, 0.12);
+    border-left: 4px solid var(--honey);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.4rem;
+  }
+  .zone__kod {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--herb);
+  }
+  .zone__nazov { font-size: var(--step-2); margin: 0.2rem 0 0.5rem; }
+  .zone__text { color: var(--bark-soft); font-size: var(--step-0); margin-bottom: 0.8rem; }
+  .zone__cena {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--amber-deep);
+    letter-spacing: 0.02em;
+  }
+
+  .order__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: var(--bark);
+    color: var(--beeswax);
+    border-radius: var(--radius);
+    padding: clamp(1.5rem, 4vw, 2.2rem);
+  }
+  .order__pay { max-width: 46ch; }
+  .order__pay .contact__label { color: #E9C46A; }
+  .paylist {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.1rem;
+    margin: 0.6rem 0 0.7rem;
+  }
+  .paylist li {
+    position: relative;
+    padding-left: 1.2rem;
+    font-size: var(--step-0);
+    color: rgba(251, 243, 226, 0.92);
+  }
+  .paylist li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--honey);
+    font-weight: 700;
+  }
+  .order__paytext { font-size: var(--step-0); margin: 0.2rem 0 0.3rem; color: rgba(251, 243, 226, 0.92); }
+  .order__paytext strong { color: var(--beeswax); white-space: nowrap; }
+  .order__paynote { font-size: var(--step--1); color: rgba(251, 243, 226, 0.65); }
+  .order__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
 
   /* ── Pätička ────────────────────────────────────────────────── */
   .footer { background: var(--amber-deep); color: var(--beeswax); padding: clamp(2.5rem, 6vw, 4rem) 0; text-align: center; }
