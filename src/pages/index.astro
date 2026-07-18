@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import { encode, PaymentOptions, CurrencyCode } from 'bysquare/pay';
+import QRCode from 'qrcode';
 
 // ── Obsah stránky (jednoducho upraviteľné na jednom mieste) ──────────────
 const farma = {
@@ -92,10 +94,35 @@ const objednavka = {
     'Dobierka — platba pri prevzatí',
     'Prípadne sa dohodneme v e-maile',
   ],
-  // DOPLNIŤ skutočný IBAN. Kým je prázdny, na stránke sa namiesto čísla
-  // zobrazí „platobné údaje pošleme v e-maile“ (nezverejňujeme falošný IBAN).
+  // DOPLNIŤ skutočný IBAN (a meno majiteľa účtu). Kým je IBAN prázdny, na
+  // stránke sa namiesto čísla zobrazí „platobné údaje pošleme v e-maile“
+  // (nezverejňujeme falošný IBAN). Po vyplnení sa pri builde automaticky
+  // vygeneruje aj QR kód na platbu (PAY by square).
   iban: '',
+  majitelUctu: '',
 };
+
+// QR platba (PAY by square) — generuje sa pri builde, iba keď je vyplnený
+// IBAN. Suma sa v QR neuvádza; zákazník ju doplní podľa potvrdzujúceho
+// e-mailu (cena + poštovné sa líšia podľa objednávky).
+const qrPlatbaSvg = objednavka.iban
+  ? await QRCode.toString(
+      encode({
+        payments: [
+          {
+            type: PaymentOptions.PaymentOrder,
+            currencyCode: CurrencyCode.EUR,
+            bankAccounts: [{ iban: objednavka.iban.replace(/\s+/g, '') }],
+            ...(objednavka.majitelUctu
+              ? { beneficiary: { name: objednavka.majitelUctu } }
+              : {}),
+            paymentNote: 'Objednavka Na Luke',
+          },
+        ],
+      }),
+      { type: 'svg', errorCorrectionLevel: 'M', margin: 0 },
+    )
+  : '';
 
 // Ručne kreslené SVG ilustrácie pre produktové karty (žiadne externé obrázky).
 function renderIlustracia(typ: string): string {
@@ -440,7 +467,19 @@ function renderIlustracia(typ: string): string {
                 {objednavka.platby.map((p) => <li>{p}</li>)}
               </ul>
               {objednavka.iban ? (
-                <p class="order__paytext">Bankový prevod — IBAN <strong>{objednavka.iban}</strong></p>
+                <div class="order__bank">
+                  <div>
+                    <p class="order__paytext">Bankový prevod — IBAN <strong>{objednavka.iban}</strong></p>
+                    {objednavka.majitelUctu ? (
+                      <p class="order__paynote">Účet: {objednavka.majitelUctu}</p>
+                    ) : null}
+                    <p class="order__paynote">
+                      Alebo naskenujte QR kód v aplikácii svojej banky — údaje sa
+                      predvyplnia samy. Sumu doplňte podľa potvrdzujúceho e-mailu.
+                    </p>
+                  </div>
+                  <div class="order__qr" set:html={qrPlatbaSvg} />
+                </div>
               ) : (
                 <p class="order__paynote">Platobné údaje pošleme v potvrdzujúcom e-maile.</p>
               )}
@@ -971,6 +1010,23 @@ function renderIlustracia(typ: string): string {
   .order__paytext { font-size: var(--step-0); margin: 0.2rem 0 0.3rem; color: rgba(251, 243, 226, 0.92); }
   .order__paytext strong { color: var(--beeswax); white-space: nowrap; }
   .order__paynote { font-size: var(--step--1); color: rgba(251, 243, 226, 0.65); }
+  .order__bank {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+    margin: 0.2rem 0 0.3rem;
+  }
+  .order__bank .order__paytext { margin: 0; }
+  .order__qr {
+    flex: 0 0 auto;
+    width: 116px;
+    height: 116px;
+    padding: 9px;
+    background: #fff;
+    border-radius: 10px;
+  }
+  .order__qr svg { display: block; width: 100%; height: 100%; }
   .order__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
 
   /* ── Pätička ────────────────────────────────────────────────── */
