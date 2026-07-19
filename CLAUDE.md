@@ -34,7 +34,16 @@ parts is enough to work productively:
    the design — illustrations (honey jars, eggs, candle) and scenes (hen, bee) are
    hand-drawn SVG so the site is fully self-contained and fast.
 3. **A single scoped `<style>` block** holds all page-specific CSS, using BEM-ish
-   class names (`.hero__title`, `.card__art`, etc.).
+   class names (`.hero__title`, `.card__art`, etc.). Injected raw SVG (via
+   `set:html`) is NOT scoped by Astro — style it with `wrapper :global(svg)`
+   selectors, never bare descendant selectors.
+
+**The brand mark** (`znackaD`/`renderZnacka()` in frontmatter, also
+`public/favicon.svg`) is Oto's own hand-drawn calligraphic signature, vectorized
+faithfully (potrace) from his marker sketch — the original photo is
+`design/logo-oto-original.jpeg`. The hand-drawn wobble is intentional; do not
+smooth, redraw, or "clean up" this path. It appears in the nav brand and the
+footer.
 
 Design tokens are centralized in **`src/styles/global.css`** under `:root` — the
 palette (beeswax/honey/bark/herb hex values), the Fraunces + Hanken Grotesk type
