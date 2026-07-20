@@ -79,4 +79,4 @@ on the **`feature/eshop-objednavka`** branch. Do not add ordering/commerce to th
 live site (`main`) unless the owner has explicitly agreed to enable it.
 
 ---
-*Part of the Sille family trust — estate index: `../SilleFamily/HOLDINGS.md`.*
+*Part of the Sille family trust. At session start, read `../SilleFamily/HOLDINGS.md` — every hat sees the whole estate at a glance; this door's work stays in this door.*
