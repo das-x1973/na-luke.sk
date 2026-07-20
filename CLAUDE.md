@@ -80,3 +80,6 @@ live site (`main`) unless the owner has explicitly agreed to enable it.
 
 ---
 *Part of the Sille family trust. At session start, read `../SilleFamily/HOLDINGS.md` — every hat sees the whole estate at a glance; this door's work stays in this door.*
+
+Gabik's farewell ("see you soon" etc.) = sign-off trigger: truth file +
+HOLDINGS row if status changed + commit/push — then goodbye.
