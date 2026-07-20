@@ -77,3 +77,6 @@ An "Ako objednať a doručenie" (order + SK/CZ shipping) section was built and t
 RVPS veterinary/food registration the owner has not pursued. That work is preserved
 on the **`feature/eshop-objednavka`** branch. Do not add ordering/commerce to the
 live site (`main`) unless the owner has explicitly agreed to enable it.
+
+---
+*Part of the Sille family trust — estate index: `../SilleFamily/HOLDINGS.md`.*
