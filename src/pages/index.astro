@@ -87,7 +87,7 @@ const objednavka = {
   zony: [
     { kod: 'SK', nazov: 'Slovensko', text: 'Na Packeta výdajné miesto alebo na adresu, zvyčajne do 2–3 pracovných dní.', cena: 'poštovné podľa Packety' },
     { kod: 'CZ', nazov: 'Česko', text: 'Posielame aj k susedom — slovenský med si cestu do Česka rád nájde.', cena: 'poštovné podľa Packety' },
-    { kod: 'Z dvora', nazov: 'Osobný odber', text: 'Med, peľ aj čerstvé vajíčka si vyzdvihnete priamo na farme v Hornom Gemri.', cena: 'bez poštovného' },
+    { kod: 'Z dvora', nazov: 'Osobný odber', text: 'Med, peľ aj čerstvé vajíčka si vyzdvihnete priamo na farme na Hornom Gemeri.', cena: 'bez poštovného' },
   ],
   platby: [
     'Bankový prevod',
@@ -113,9 +113,7 @@ const qrPlatbaSvg = objednavka.iban
             type: PaymentOptions.PaymentOrder,
             currencyCode: CurrencyCode.EUR,
             bankAccounts: [{ iban: objednavka.iban.replace(/\s+/g, '') }],
-            ...(objednavka.majitelUctu
-              ? { beneficiary: { name: objednavka.majitelUctu } }
-              : {}),
+            beneficiary: { name: objednavka.majitelUctu || farma.nazov },
             paymentNote: 'Objednavka Na Luke',
           },
         ],
@@ -575,12 +573,12 @@ function renderIlustracia(typ: string): string {
 
       // Mobilné menu (hamburger)
       const toggle = nav?.querySelector('.nav__toggle');
-      const setMenu = (open) => {
+      const setMenu = (open: boolean) => {
         nav?.classList.toggle('is-open', open);
         toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
       };
       toggle?.addEventListener('click', () =>
-        setMenu(!nav.classList.contains('is-open'))
+        setMenu(!nav?.classList.contains('is-open'))
       );
       // Zavrieť po kliknutí na položku alebo klávesou Esc
       nav?.querySelectorAll('.nav__links a').forEach((a) =>
