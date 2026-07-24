@@ -65,6 +65,14 @@ const produkty = [
   // },
 ];
 
+// ── SEO ──────────────────────────────────────────────────────────────────
+const seo = {
+  url: 'https://na-luke.sk/',
+  titul: 'Na Lúke — bio med, včelí peľ a domáce vajíčka z Horného Gemera',
+  popis:
+    'Malá rodinná farma na Hornom Gemeri. Predávame miešaný lesný med, včelí peľ a domáce vajíčka z voľného výbehu. Med a peľ posielame po Slovensku aj do Česka — objednáte jednoduchým e-mailom.',
+};
+
 const kontakt = {
   email: 'lucnydedko@gmail.com',
   adresa: ['Horný Gemer', 'Slovensko'],
@@ -100,6 +108,29 @@ const objednavka = {
   // vygeneruje aj QR kód na platbu (PAY by square).
   iban: '',
   majitelUctu: '',
+};
+
+// Štruktúrované dáta pre vyhľadávače (JSON-LD) — generujú sa z obsahu vyššie.
+const ldJson = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: farma.nazov,
+  url: seo.url,
+  email: kontakt.email,
+  description: seo.popis,
+  foundingDate: farma.zalozene,
+  image: `${seo.url}og.png`,
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Horný Gemer',
+    addressCountry: 'SK',
+  },
+  makesOffer: produkty.map((p) => ({
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Product', name: p.nazov, description: p.popis },
+    price: parseFloat(p.ceny[0].suma.replace(',', '.')).toFixed(2),
+    priceCurrency: 'EUR',
+  })),
 };
 
 // QR platba (PAY by square) — generuje sa pri builde, iba keď je vyplnený
@@ -236,11 +267,16 @@ function renderIlustracia(typ: string): string {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{farma.nazov} — bio med a domáce vajíčka rovno z dvora</title>
-    <meta
-      name="description"
-      content="Malá rodinná farma Na Lúke. Miešaný lesný med, včelí peľ a domáce vajíčka z voľného výbehu. Poctivé domáce dobroty rovno z nášho dvora — od roku 2009."
-    />
+    <title>{seo.titul}</title>
+    <meta name="description" content={seo.popis} />
+    <link rel="canonical" href={seo.url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={seo.titul} />
+    <meta property="og:description" content={seo.popis} />
+    <meta property="og:url" content={seo.url} />
+    <meta property="og:image" content={`${seo.url}og.png`} />
+    <meta property="og:locale" content="sk_SK" />
+    <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
