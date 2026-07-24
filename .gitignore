@@ -3,3 +3,6 @@ dist/
 .astro/
 .DS_Store
 *.log
+
+# Lokálne poznámky — nikdy nepushovať (repo je verejné)
+TODO_LIST.md
