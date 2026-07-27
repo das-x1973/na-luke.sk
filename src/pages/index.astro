@@ -535,6 +535,20 @@ function renderIlustracia(typ: string): string {
         </div>
       </section>
 
+      <!-- ── Miesto (prvá skutočná fotografia) ────────────────────── -->
+      <section class="fotopas" aria-label="Miesto, kde sa deň deje">
+        <figure class="reveal">
+          <img
+            src="/foto/dom-pod-lesom.jpg"
+            alt="Drevený dom na lúke pod zalesnenými kopcami Horného Gemera"
+            width="1600"
+            height="1200"
+            loading="lazy"
+          />
+          <figcaption>Dom pod lesom, kde sa deň končí čajom a medom.</figcaption>
+        </figure>
+      </section>
+
       <!-- ── Rezervácia ───────────────────────────────────────────── -->
       <section class="section order" id="rezervacia">
         <div class="container">
@@ -1041,6 +1055,22 @@ function renderIlustracia(typ: string): string {
   .story__facts span { font-size: var(--step--1); color: rgba(251, 243, 226, 0.7); letter-spacing: 0.03em; }
   .scene { background: linear-gradient(160deg, #bcd0e8, #dfe9d6); border-radius: var(--radius); padding: 1rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3); }
   .scene__svg { width: 100%; height: auto; display: block; }
+
+  /* ── Fotopás (skutočné fotografie miesta) ───────────────────── */
+  .fotopas { background: var(--beeswax-2); }
+  .fotopas figure { margin: 0; }
+  .fotopas img {
+    display: block;
+    width: 100%;
+    max-height: 62vh;
+    object-fit: cover;
+  }
+  .fotopas figcaption {
+    text-align: center;
+    font-size: var(--step--1);
+    color: var(--bark-soft);
+    padding: 0.9rem 1rem;
+  }
 
   /* ── Foto placeholder (kým prídu skutočné fotky) ────────────── */
   .foto {
