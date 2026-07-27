@@ -1,4 +1,8 @@
+# Indexovanie je zatiaľ vypnuté cez <meta name="robots" content="noindex">
+# na stránke. Crawling ostáva povolený NASCHVÁL — inak by Google noindex
+# nikdy neuvidel. Po rozhodnutí rodiny: zmazať noindex (seo.indexovat=true
+# v index.astro) a vrátiť sem riadok:
+# Sitemap: https://na-luke.sk/sitemap.xml
+
 User-agent: *
 Allow: /
-
-Sitemap: https://na-luke.sk/sitemap.xml

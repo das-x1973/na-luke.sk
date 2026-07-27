@@ -71,6 +71,10 @@ const produkty = [
 // „Apiterapia" žije v title/description/JSON-LD + jednej vete v texte pri
 // úľoch — nikdy ako názov programu či nadpis (nesľubujeme liečbu).
 const seo = {
+  // Kým rodina nerozhodne o viditeľnosti: false = vyhľadávače stránku
+  // neindexujú (noindex). Po rozhodnutí prepnúť na true a vrátiť Sitemap
+  // riadok do public/robots.txt.
+  indexovat: false,
   url: 'https://na-luke.sk/',
   titul: 'Na Lúke — apiterapia, lesný kúpeľ a meditácia na Hornom Gemeri',
   popis:
@@ -354,6 +358,7 @@ function renderIlustracia(typ: string): string {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{seo.titul}</title>
+    {!seo.indexovat && <meta name="robots" content="noindex, nofollow" />}
     <meta name="description" content={seo.popis} />
     <link rel="canonical" href={seo.url} />
     <meta property="og:type" content="website" />
