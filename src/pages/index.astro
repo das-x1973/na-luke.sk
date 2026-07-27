@@ -33,15 +33,17 @@ const produkty = [
     ceny: [{ suma: '4 €', za: '100 g' }],
     ilustracia: 'pel',
   },
-  {
-    id: 'vajicka',
-    nazov: 'Domáce vajíčka',
-    tag: 'Z dvora',
-    popis:
-      'Od sliepok z voľného výbehu. Sýto oranžové žĺtka a škrupina, ktorá pozná len trávu, slnko a čerstvý vzduch.',
-    ceny: [{ suma: '3,50 €', za: '10 ks' }],
-    ilustracia: 'vajicka',
-  },
+  // Vajíčka sú (zatiaľ) z webu dole — web je o včelách; na opätovné zapnutie
+  // stačí odkomentovať.
+  // {
+  //   id: 'vajicka',
+  //   nazov: 'Domáce vajíčka',
+  //   tag: 'Z dvora',
+  //   popis:
+  //     'Od sliepok z voľného výbehu. Sýto oranžové žĺtka a škrupina, ktorá pozná len trávu, slnko a čerstvý vzduch.',
+  //   ceny: [{ suma: '3,50 €', za: '10 ks' }],
+  //   ilustracia: 'vajicka',
+  // },
   // Mäso (hydina) je zatiaľ vypnuté — Oto ho na webe (zatiaľ) nechce.
   // Na opätovné zapnutie stačí odkomentovať tieto dva produkty (ilustrácie
   // 'sliepka'/'kohut' aj ich štýly v <style> ostávajú pripravené v kóde).
@@ -66,46 +68,79 @@ const produkty = [
 ];
 
 // ── SEO ──────────────────────────────────────────────────────────────────
+// „Apiterapia" žije v title/description/JSON-LD + jednej vete v texte pri
+// úľoch — nikdy ako názov programu či nadpis (nesľubujeme liečbu).
 const seo = {
   url: 'https://na-luke.sk/',
-  titul: 'Na Lúke — bio med, včelí peľ a domáce vajíčka z Horného Gemera',
+  titul: 'Na Lúke — apiterapia, lesný kúpeľ a meditácia na Hornom Gemeri',
   popis:
-    'Malá rodinná farma na Hornom Gemeri. Predávame miešaný lesný med, včelí peľ a domáce vajíčka z voľného výbehu. Med a peľ posielame po Slovensku aj do Česka — objednáte jednoduchým e-mailom.',
+    'Deň na lúke a v lese s bývalým budhistickým mníchom: pomalá prechádzka lesom, meditácia a oddych pri úľoch (apiterapia). Horný Gemer, soboty a nedele, malé skupiny. Domov si odnesiete pokoj — a pohár medu.',
+};
+
+// ── Deň na lúke a v lese ─────────────────────────────────────────────────
+const den = {
+  nazov: 'Deň na lúke a v lese',
+  zazitky: [
+    {
+      id: 'les',
+      nazov: 'Lesná prechádzka',
+      tag: 'Les',
+      popis:
+        'Pomalá chôdza starým lesom — bez ponáhľania a bez rečí. Les robí svoju prácu sám; niekde sa tomu hovorí lesný kúpeľ.',
+      ilustracia: 'les',
+    },
+    {
+      id: 'meditacia',
+      nazov: 'Meditácia s Otom',
+      tag: 'Ticho',
+      popis:
+        'Jednoduché sedenie a dych pod holým nebom. Vedie Oto, ktorý šesť rokov žil ako budhistický mních. Žiadna ezoterika — len ticho.',
+      ilustracia: 'meditacia',
+    },
+    {
+      id: 'ule',
+      nazov: 'Oddych pri úľoch',
+      tag: 'Včely',
+      popis:
+        'Vôňa úľa, teplo, bzukot — telo si oddýchne samo. K úľom sa nechodí povinne; dobre je aj z diaľky. Oddychu pri úľoch sa niekedy hovorí aj apiterapia.',
+      ilustracia: 'ule',
+    },
+  ],
+  priebeh: [
+    { nazov: 'Prechádzka lesom', text: 'Začíname pomaly — cesta lesom, ktorá z hlavy vyvetrá týždeň.' },
+    { nazov: 'Meditácia na lúke', text: 'Sadneme si do trávy. Oto vás prevedie jednoduchým sedením a dychom.' },
+    { nazov: 'Oddych pri úľoch', text: 'Kto chce, príde bližšie k včelám. Kto nechce, počúva ich z deky.' },
+    { nazov: 'Čaj, med a rozlúčka', text: 'Na záver čaj, chlieb s medom a rozhovor — ak naň bude chuť.' },
+  ],
+  info: [
+    { kod: 'Kedy', nazov: 'Soboty a nedele', text: 'Doobedie, približne tri hodiny. Iný deň? Napíšte, dohodneme sa.', cena: 'od jari do jesene' },
+    { kod: '2–6', nazov: 'Malá skupina', text: 'Chodíme v tichu a v malom počte — rezervácia vopred je nutná.', cena: 'súkromný termín pre vašu skupinu' },
+    { kod: '10 €', nazov: 'Cena za osobu', text: 'Deti od 10 do 15 rokov za 5 €. Program je tichý a pomalý — deti od 10 rokov, v sprievode dospelého.', cena: 'platba v hotovosti na mieste' },
+  ],
+  dobreVediet: [
+    'Sme na lúke, pri včelách a v lese — v živej prírode. Počas celej návštevy zodpovedáte za seba aj za svoje deti.',
+    'Ak máte alergiu na včelie bodnutie, napíšte nám to vopred — k úľom sa nechodí povinne a program si užijete aj bez nich. Svoje lieky si nosíte so sebou; na mieste neposkytujeme zdravotnú pomoc.',
+    'Presné miesto stretnutia pošleme po potvrdení termínu — sme v Hornom Gemeri, kúsok od hlavnej cesty.',
+    'Pevné topánky a oblečenie do prírody sa hodia. Dážď program neruší — les je pekný aj mokrý.',
+  ],
 };
 
 const kontakt = {
   email: 'lucnydedko@gmail.com',
   adresa: ['Horný Gemer', 'Slovensko'],
   hodiny: [
-    ['Sobota', '9:00 – 12:00'],
-    ['Po – Pia', 'Po dohode vopred'],
-    ['Nedeľa', 'Zatvorené'],
+    ['Víkend', 'Deň na lúke a v lese (rezervácia vopred)'],
+    ['Iné dni', 'Po dohode e-mailom'],
   ],
 };
 
-// ── Objednávka a doručenie (med a peľ poštou, cez Packetu) ──────────────
-// Posielame iba med a včelí peľ; vajíčka sú len na osobný odber.
+// ── Objednávka medu poštou (Packeta, SK + CZ) ────────────────────────────
+// Deň na lúke sa platí v hotovosti na mieste; toto je len pre zásielky medu.
+// DOPLNIŤ skutočný IBAN (a meno majiteľky účtu). Kým je IBAN prázdny, na
+// stránke sa namiesto čísla zobrazí „platobné údaje pošleme v e-maile“
+// (nezverejňujeme falošný IBAN). Po vyplnení sa pri builde automaticky
+// vygeneruje aj QR kód na platbu (PAY by square).
 const objednavka = {
-  kroky: [
-    { nazov: 'Napíšte', text: 'Pošlite nám e-mail s tým, čo a koľko by ste chceli — med alebo včelí peľ.' },
-    { nazov: 'Potvrdíme', text: 'Ozveme sa s dostupnosťou, cenou a poštovným podľa Packety.' },
-    { nazov: 'Zaplatíte', text: 'Bankovým prevodom, na dobierku, alebo ako sa dohodneme.' },
-    { nazov: 'Pošleme', text: 'Zabalíme a odošleme cez Packetu — poháre tak, aby cestu zvládli v poriadku.' },
-  ],
-  zony: [
-    { kod: 'SK', nazov: 'Slovensko', text: 'Na Packeta výdajné miesto alebo na adresu, zvyčajne do 2–3 pracovných dní.', cena: 'poštovné podľa Packety' },
-    { kod: 'CZ', nazov: 'Česko', text: 'Posielame aj k susedom — slovenský med si cestu do Česka rád nájde.', cena: 'poštovné podľa Packety' },
-    { kod: 'Z dvora', nazov: 'Osobný odber', text: 'Med, peľ aj čerstvé vajíčka si vyzdvihnete priamo na farme na Hornom Gemeri.', cena: 'bez poštovného' },
-  ],
-  platby: [
-    'Bankový prevod',
-    'Dobierka — platba pri prevzatí',
-    'Prípadne sa dohodneme v e-maile',
-  ],
-  // DOPLNIŤ skutočný IBAN (a meno majiteľa účtu). Kým je IBAN prázdny, na
-  // stránke sa namiesto čísla zobrazí „platobné údaje pošleme v e-maile“
-  // (nezverejňujeme falošný IBAN). Po vyplnení sa pri builde automaticky
-  // vygeneruje aj QR kód na platbu (PAY by square).
   iban: '',
   majitelUctu: '',
 };
@@ -125,12 +160,25 @@ const ldJson = {
     addressRegion: 'Horný Gemer',
     addressCountry: 'SK',
   },
-  makesOffer: produkty.map((p) => ({
-    '@type': 'Offer',
-    itemOffered: { '@type': 'Product', name: p.nazov, description: p.popis },
-    price: parseFloat(p.ceny[0].suma.replace(',', '.')).toFixed(2),
-    priceCurrency: 'EUR',
-  })),
+  makesOffer: [
+    {
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: den.nazov,
+        description:
+          'Poldenný program v malej skupine: lesná prechádzka (lesný kúpeľ), meditácia s bývalým budhistickým mníchom a oddych pri úľoch (apiterapia). Deti od 10 rokov.',
+      },
+      price: '10.00',
+      priceCurrency: 'EUR',
+    },
+    ...produkty.map((p) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Product', name: p.nazov, description: p.popis },
+      price: parseFloat(p.ceny[0].suma.replace(',', '.')).toFixed(2),
+      priceCurrency: 'EUR',
+    })),
+  ],
 };
 
 // QR platba (PAY by square) — generuje sa pri builde, iba keď je vyplnený
@@ -255,6 +303,44 @@ function renderIlustracia(typ: string): string {
           <circle cx="90" cy="42" r="2.8" fill="#2A1E12"/>
           <path d="M50 96 l-3 13 M62 96 l3 13" stroke="#E58E26" stroke-width="3.8" fill="none" stroke-linecap="round"/>
         </svg>`;
+    case 'les':
+      return `
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="60" cy="106" rx="38" ry="6" fill="#7A3B0E" opacity="0.12"/>
+          <path d="M18 102 q30 -10 50 0 q20 -8 34 0" fill="none" stroke="#8a5a2b" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+          <rect x="30" y="78" width="7" height="24" rx="3" fill="#8a5a2b"/>
+          <path d="M33 22 l20 34 h-12 l16 26 h-48 l16 -26 h-12 z" fill="#4E5B3A"/>
+          <path d="M33 22 l20 34 h-12 l16 26 h-24 z" fill="#3D4A2A"/>
+          <rect x="80" y="82" width="6" height="20" rx="3" fill="#8a5a2b"/>
+          <circle cx="83" cy="62" r="21" fill="#6E7C4F"/>
+          <circle cx="72" cy="54" r="10" fill="#7d8c5c"/>
+          <circle cx="93" cy="50" r="8" fill="#5E6C41"/>
+          <circle cx="20" cy="34" r="7" fill="#E9C46A" opacity="0.9"/>
+        </svg>`;
+    case 'meditacia':
+      return `
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="60" cy="106" rx="34" ry="6" fill="#7A3B0E" opacity="0.12"/>
+          <path d="M60 17 a43 43 0 1 0 14 2.4" fill="none" stroke="#2A1E14" stroke-width="8" stroke-linecap="round" opacity="0.88"/>
+          <circle cx="60" cy="60" r="5" fill="#C57E1E"/>
+        </svg>`;
+    case 'ule':
+      return `
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="56" cy="106" rx="36" ry="6" fill="#7A3B0E" opacity="0.12"/>
+          <path d="M28 100 q-2 -10 4 -12 h48 q6 2 4 12 z" fill="#C77A12"/>
+          <path d="M30 88 q-4 -12 4 -14 h44 q8 2 4 14 z" fill="#E0A93C"/>
+          <path d="M34 74 q-4 -12 4 -13 h36 q8 1 4 13 z" fill="#C77A12"/>
+          <path d="M38 61 q-3 -10 4 -11 h28 q7 1 4 11 z" fill="#E0A93C"/>
+          <path d="M44 50 q0 -14 12 -14 q12 0 12 14 z" fill="#C77A12"/>
+          <path d="M50 100 v-8 a6 6 0 0 1 12 0 v8 z" fill="#5B3A12"/>
+          <g transform="translate(92 40)">
+            <ellipse cx="0" cy="0" rx="8" ry="5.5" fill="#E9C46A"/>
+            <path d="M-3.5 -4.5 v9 M1.5 -5 v10" stroke="#2A1E12" stroke-width="1.8"/>
+            <ellipse cx="-5" cy="-5" rx="5" ry="3" fill="#fff" opacity="0.7"/>
+          </g>
+          <path d="M84 52 q-6 8 -14 10" fill="none" stroke="#2A1E12" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round" opacity="0.55"/>
+        </svg>`;
     default:
       return '';
   }
@@ -302,10 +388,10 @@ function renderIlustracia(typ: string): string {
           <span></span><span></span><span></span>
         </button>
         <nav class="nav__links" id="nav-menu" aria-label="Hlavné menu">
-          <a href="#produkty">Produkty</a>
-          <a href="#o-nas">O farme</a>
-          <a href="#objednat">Objednať</a>
-          <a href="#kontakt" class="nav__cta">Kontakt</a>
+          <a href="#program">Program</a>
+          <a href="#o-nas">O Otovi</a>
+          <a href="#med">Med</a>
+          <a href="#rezervacia" class="nav__cta">Rezervovať</a>
         </nav>
       </div>
     </header>
@@ -316,18 +402,18 @@ function renderIlustracia(typ: string): string {
         <div class="hero__honeycomb" aria-hidden="true"></div>
         <div class="container hero__inner">
           <div class="hero__text reveal">
-            <p class="eyebrow">Bio · Od rodiny pre rodinu · Od {farma.zalozene}</p>
+            <p class="eyebrow">Horný Gemer · Soboty a nedele · Od {farma.zalozene}</p>
             <h1 class="hero__title">
-              Med a vajíčka<br />rovno z&nbsp;nášho <span class="hero__accent">dvora.</span>
+              Ticho, včely<br />a&nbsp;<span class="hero__accent">les.</span>
             </h1>
             <p class="hero__lead">
-              Malá rodinná farma, kde včely opeľujú lúky a sliepky behajú po
-              tráve. Žiadne skratky — len poctivé domáce dobroty, ktoré poznajú
-              svoj úľ a svoju sliepku.
+              Deň na lúke a v lese: pomalá prechádzka starým lesom, meditácia
+              pod holým nebom a oddych pri úľoch. Domov si odnesiete pokoj —
+              a možno aj pohár medu.
             </p>
             <div class="hero__actions">
-              <a href="#produkty" class="btn">Naše produkty</a>
-              <a href="#kontakt" class="btn btn--ghost">Kde nás nájdete</a>
+              <a href="#program" class="btn">Ako vyzerá deň</a>
+              <a href="#rezervacia" class="btn btn--ghost">Rezervovať termín</a>
             </div>
           </div>
 
@@ -371,15 +457,152 @@ function renderIlustracia(typ: string): string {
         </div>
       </section>
 
-      <!-- ── Produkty ──────────────────────────────────────────────── -->
-      <section class="section" id="produkty">
+      <!-- ── Program: Deň na lúke a v lese ─────────────────────────── -->
+      <section class="section" id="program">
         <div class="container">
           <header class="section__head reveal">
-            <p class="eyebrow">Čo ponúkame</p>
-            <h2 class="section__title">Zo dvora na váš stôl</h2>
+            <p class="eyebrow">Program</p>
+            <h2 class="section__title">{den.nazov}</h2>
             <p class="section__sub">
-              Vyrábame v malom, podľa toho, čo dá sezóna. Keď niečo nie je na
-              sklade, znamená to, že práve dozrieva.
+              Poldenný program v malej skupine — bez zhonu, bez mobilov, bez
+              výkonov. Tri veci, ktoré spolu tvoria jeden pomalý deň.
+            </p>
+          </header>
+
+          <div class="products">
+            {den.zazitky.map((z) => (
+              <article class="card reveal">
+                <div class={`card__art card__art--${z.ilustracia}`}>
+                  <Fragment set:html={renderIlustracia(z.ilustracia)} />
+                </div>
+                <div class="card__body">
+                  <span class="card__tag">{z.tag}</span>
+                  <h3 class="card__title">{z.nazov}</h3>
+                  <p class="card__text">{z.popis}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <ol class="steps reveal">
+            {den.priebeh.map((k, i) => (
+              <li class="step">
+                <span class="step__num">{i + 1}</span>
+                <h3 class="step__title">{k.nazov}</h3>
+                <p class="step__text">{k.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <!-- ── O Otovi ──────────────────────────────────────────────── -->
+      <section class="story" id="o-nas">
+        <div class="story__texture" aria-hidden="true"></div>
+        <div class="container story__inner">
+          <div class="story__text reveal">
+            <p class="eyebrow eyebrow--light">O Otovi</p>
+            <h2 class="story__title">
+              Kým som postavil prvý úľ, prešiel som pešo pol sveta.
+            </h2>
+            <p>
+              Pred vyše dvadsiatimi rokmi som vyšiel z Gemera a šiel som pešo —
+              cez krajiny a hranice — až do Kórey. Šesť rokov som tam žil ako
+              budhistický mních. Naučilo ma to jednu vec: keď sa neponáhľaš,
+              všetko dôležité príde samo.
+            </p>
+            <p>
+              Dnes žijem so ženou a synom na lúke pod lesom — a so včelami.
+              Deň, ktorý u nás strávite, je kus tejto cesty: ticho, pomalá
+              chôdza a úcta k niečomu väčšiemu, ako si ty sám.
+            </p>
+            <ul class="story__facts">
+              <li><strong>Pešo</strong><span>z Gemera do Kórey</span></li>
+              <li><strong>6 rokov</strong><span>budhistickým mníchom</span></li>
+              <li><strong>Od {farma.zalozene}</strong><span>so včelami na lúke</span></li>
+            </ul>
+          </div>
+          <div class="story__art reveal">
+            <div class="foto foto--portrait">
+              <span>Fotografia Ota<br /><small>doplníme čoskoro</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Rezervácia ───────────────────────────────────────────── -->
+      <section class="section order" id="rezervacia">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Rezervácia</p>
+            <h2 class="section__title">Dohodnite si svoj deň</h2>
+            <p class="section__sub">
+              Žiadny rezervačný systém — jeden e-mail stačí. Chodíme v malých
+              skupinách, preto je termín vždy len váš.
+            </p>
+          </header>
+
+          <div class="zones reveal">
+            {den.info.map((z) => (
+              <article class="zone">
+                <span class="zone__kod">{z.kod}</span>
+                <h3 class="zone__nazov">{z.nazov}</h3>
+                <p class="zone__text">{z.text}</p>
+                <p class="zone__cena">{z.cena}</p>
+              </article>
+            ))}
+          </div>
+
+          <ol class="steps reveal">
+            {[
+              { nazov: 'Napíšte', text: 'Pošlite e-mail: koľko vás je, aký víkend by vám sedel a či má niekto alergiu na včelie bodnutie.' },
+              { nazov: 'Dohodneme termín', text: 'Ozveme sa, doladíme deň a pošleme presné miesto stretnutia.' },
+              { nazov: 'Prídete', text: 'Pevné topánky, pokoj v duši. Všetko ostatné je na nás.' },
+            ].map((k, i) => (
+              <li class="step">
+                <span class="step__num">{i + 1}</span>
+                <h3 class="step__title">{k.nazov}</h3>
+                <p class="step__text">{k.text}</p>
+              </li>
+            ))}
+          </ol>
+
+          <aside class="notice reveal">
+            <h3 class="notice__title">Dobré vedieť</h3>
+            <ul>
+              {den.dobreVediet.map((r) => <li>{r}</li>)}
+            </ul>
+          </aside>
+
+          <div class="order__cta reveal">
+            <div class="order__pay">
+              <span class="contact__label">Platba</span>
+              <p class="order__paytext">
+                V hotovosti na mieste — <strong>10 € dospelý</strong>, 5 € dieťa
+                od 10 do 15 rokov.
+              </p>
+              <p class="order__paynote">Žiadna záloha vopred. Ak vám do termínu niečo príde, jednoducho napíšte.</p>
+            </div>
+            <div class="order__actions">
+              <a
+                href={`mailto:${kontakt.email}?subject=${encodeURIComponent('Rezervácia — Deň na lúke a v lese')}`}
+                class="btn"
+              >Rezervovať e-mailom</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Med ──────────────────────────────────────────────────── -->
+      <section class="section" id="med">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Z našej lúky</p>
+            <h2 class="section__title">Med si odnesiete domov</h2>
+            <p class="section__sub">
+              Na konci dňa ochutnáte med rovno z našich úľov — a čo vám
+              zachutí, kúpite na mieste. Med a peľ posielame aj poštou cez
+              Packetu, po Slovensku a do Česka.
             </p>
           </header>
 
@@ -405,104 +628,14 @@ function renderIlustracia(typ: string): string {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <!-- ── O farme ──────────────────────────────────────────────── -->
-      <section class="story" id="o-nas">
-        <div class="story__texture" aria-hidden="true"></div>
-        <div class="container story__inner">
-          <div class="story__text reveal">
-            <p class="eyebrow eyebrow--light">O našej farme</p>
-            <h2 class="story__title">
-              Začalo to pár úľmi za domom a kŕdľom sliepok.
-            </h2>
-            <p>
-              Dnes je to stále malá rodinná farma — taká, kde každý pohár medu
-              pozná svoj úľ a každé vajíčko svoju sliepku. Zvieratá u nás žijú
-              vonku, na slnku a tráve.
-            </p>
-            <p>
-              Veríme, že na tom, čo jeme, naozaj záleží. A že tie najlepšie veci
-              vznikajú pomaly, rukami a s trpezlivosťou. Preto nič neuponáhľame
-              — necháme včely robiť svoju prácu a sliepky tú svoju.
-            </p>
-            <ul class="story__facts">
-              <li><strong>100 %</strong><span>z vlastného chovu</span></li>
-              <li><strong>Voľný</strong><span>výbeh pre sliepky</span></li>
-              <li><strong>Bez</strong><span>zbytočnej chémie</span></li>
-            </ul>
-          </div>
-          <div class="story__art reveal" aria-hidden="true">
-            <div class="scene">
-              <svg viewBox="0 0 260 260" class="scene__svg">
-                <!-- sun -->
-                <circle cx="200" cy="62" r="30" fill="#E9C46A" opacity="0.9" />
-                <!-- hill -->
-                <path d="M0 200 Q130 150 260 200 V260 H0 Z" fill="#6E7C4F" />
-                <path d="M0 224 Q130 188 260 224 V260 H0 Z" fill="#4E5B3A" />
-                <!-- hen -->
-                <g transform="translate(96 150)">
-                  <ellipse cx="40" cy="48" rx="40" ry="30" fill="#fdfaf2" />
-                  <circle cx="70" cy="26" r="17" fill="#fdfaf2" />
-                  <path d="M70 10 q6 -10 12 -4 q-2 8 -10 9 z" fill="#C0392B" />
-                  <path d="M84 24 l11 3 -10 5 z" fill="#E58E26" />
-                  <circle cx="80" cy="24" r="2.4" fill="#2A1E12" />
-                  <path d="M2 44 q-18 4 -22 18 q16 -2 24 -10 z" fill="#D98A2B" />
-                  <path d="M40 78 l-6 14 m18 -14 l4 14" stroke="#E58E26" stroke-width="3" fill="none" stroke-linecap="round" />
-                </g>
-                <!-- bee -->
-                <g class="bee" transform="translate(150 96)">
-                  <ellipse cx="0" cy="0" rx="9" ry="6" fill="#E9C46A" />
-                  <path d="M-4 -5 v10 M2 -6 v12" stroke="#2A1E12" stroke-width="2" />
-                  <ellipse cx="-6" cy="-6" rx="6" ry="3.5" fill="#fff" opacity="0.7" />
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── Objednávka a doručenie ───────────────────────────────── -->
-      <section class="section order" id="objednat">
-        <div class="container">
-          <header class="section__head reveal">
-            <p class="eyebrow">Objednávka a doručenie</p>
-            <h2 class="section__title">Med a peľ pošleme až k vám</h2>
-            <p class="section__sub">
-              Med a včelí peľ radi pošleme po Slovensku aj do Česka cez Packetu.
-              Čerstvé vajíčka nájdete priamo na farme. Žiadny zložitý e-shop —
-              stačí napísať e-mail.
-            </p>
-          </header>
-
-          <ol class="steps reveal">
-            {objednavka.kroky.map((k, i) => (
-              <li class="step">
-                <span class="step__num">{i + 1}</span>
-                <h3 class="step__title">{k.nazov}</h3>
-                <p class="step__text">{k.text}</p>
-              </li>
-            ))}
-          </ol>
-
-          <div class="zones reveal">
-            {objednavka.zony.map((z) => (
-              <article class="zone">
-                <span class="zone__kod">{z.kod}</span>
-                <h3 class="zone__nazov">{z.nazov}</h3>
-                <p class="zone__text">{z.text}</p>
-                <p class="zone__cena">{z.cena}</p>
-              </article>
-            ))}
-          </div>
 
           <div class="order__cta reveal">
             <div class="order__pay">
-              <span class="contact__label">Platba</span>
-              <ul class="paylist">
-                {objednavka.platby.map((p) => <li>{p}</li>)}
-              </ul>
+              <span class="contact__label">Objednávka poštou</span>
+              <p class="order__paytext">
+                Napíšte, čo a koľko — ozveme sa s poštovným podľa Packety.
+                Platba prevodom alebo na dobierku.
+              </p>
               {objednavka.iban ? (
                 <div class="order__bank">
                   <div>
@@ -520,11 +653,10 @@ function renderIlustracia(typ: string): string {
               ) : (
                 <p class="order__paynote">Platobné údaje pošleme v potvrdzujúcom e-maile.</p>
               )}
-              <p class="order__paynote">Do poznámky uveďte svoje meno — nech vieme, čí balík chystáme.</p>
             </div>
             <div class="order__actions">
               <a
-                href={`mailto:${kontakt.email}?subject=${encodeURIComponent('Objednávka — Na Lúke')}`}
+                href={`mailto:${kontakt.email}?subject=${encodeURIComponent('Objednávka medu — Na Lúke')}`}
                 class="btn"
               >Objednať e-mailom</a>
             </div>
@@ -537,7 +669,7 @@ function renderIlustracia(typ: string): string {
         <div class="container">
           <header class="section__head reveal">
             <p class="eyebrow">Ozvite sa</p>
-            <h2 class="section__title">Kde nás nájdete</h2>
+            <h2 class="section__title">Napíšte nám</h2>
             <p class="section__sub">
               Najlepšie je napísať vopred — ozveme sa, dohodneme.
             </p>
@@ -550,15 +682,16 @@ function renderIlustracia(typ: string): string {
               <span class="contact__hint">Odpovedáme zvyčajne do dňa–dvoch →</span>
             </a>
             <div class="contact__card">
-              <span class="contact__label">Adresa</span>
+              <span class="contact__label">Kde sme</span>
               <span class="contact__value">
                 {kontakt.adresa.map((r, i) => (
                   <>{r}{i < kontakt.adresa.length - 1 ? <br /> : null}</>
                 ))}
               </span>
+              <span class="contact__hint">Presné miesto pošleme po potvrdení termínu</span>
             </div>
             <div class="contact__card contact__card--hours">
-              <span class="contact__label">Kedy nás nájdete</span>
+              <span class="contact__label">Termíny</span>
               <ul class="hours">
                 {kontakt.hodiny.map(([d, h]) => (
                   <li><span>{d}</span><span>{h}</span></li>
@@ -831,6 +964,9 @@ function renderIlustracia(typ: string): string {
   .card__art--pel { background: radial-gradient(circle at 50% 35%, #F0D27A, #E0A93C); }
   .card__art--sliepka { background: radial-gradient(circle at 50% 40%, #EDF1DE, #D6E0C2); }
   .card__art--kohut { background: radial-gradient(circle at 50% 40%, #F1E9D2, #D8CBA0); }
+  .card__art--les { background: radial-gradient(circle at 50% 40%, #EDF1DE, #D6E0C2); }
+  .card__art--meditacia { background: radial-gradient(circle at 50% 38%, #F6EEDC, #E8D9B4); }
+  .card__art--ule { background: radial-gradient(circle at 50% 35%, #F4E0A8, #E9C46A); }
   .card__art :global(svg) { width: 64%; height: 64%; }
   .card__body { padding: 1.3rem 1.4rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
   .card__tag {
@@ -901,6 +1037,52 @@ function renderIlustracia(typ: string): string {
   .scene { background: linear-gradient(160deg, #bcd0e8, #dfe9d6); border-radius: var(--radius); padding: 1rem; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3); }
   .scene__svg { width: 100%; height: auto; display: block; }
 
+  /* ── Foto placeholder (kým prídu skutočné fotky) ────────────── */
+  .foto {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background: rgba(251, 243, 226, 0.07);
+    border: 2px dashed rgba(251, 243, 226, 0.35);
+    border-radius: var(--radius);
+    color: rgba(251, 243, 226, 0.75);
+    font-family: var(--display);
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+  .foto small { font-family: var(--body); font-size: var(--step--1); opacity: 0.7; }
+  .foto--portrait { aspect-ratio: 3 / 4; width: 100%; max-width: 340px; margin-inline: auto; }
+
+  /* ── Dobré vedieť ───────────────────────────────────────────── */
+  .notice {
+    background: color-mix(in srgb, var(--beeswax) 55%, #fff);
+    border-left: 4px solid var(--honey);
+    border-radius: var(--radius);
+    padding: clamp(1.3rem, 3vw, 1.8rem) clamp(1.4rem, 3.5vw, 2rem);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .notice__title {
+    font-size: var(--step-0);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+    margin-bottom: 0.7rem;
+  }
+  .notice ul { list-style: none; display: grid; gap: 0.55rem; }
+  .notice li {
+    position: relative;
+    padding-left: 1.3rem;
+    color: var(--bark-soft);
+    font-size: var(--step-0);
+  }
+  .notice li::before {
+    content: '·';
+    position: absolute;
+    left: 0.2rem;
+    color: var(--honey-deep);
+    font-weight: 700;
+  }
+
   /* ── Kontakt ────────────────────────────────────────────────── */
   .contact__grid {
     display: grid;
@@ -933,9 +1115,10 @@ function renderIlustracia(typ: string): string {
   a.contact__card--primary:hover { border-color: transparent; background: #382819; }
   .contact__hint {
     font-size: var(--step--1);
-    color: rgba(251, 243, 226, 0.65);
+    color: var(--bark-soft);
     margin-top: 0.2rem;
   }
+  .contact__card--primary .contact__hint { color: rgba(251, 243, 226, 0.65); }
   .contact__label {
     font-size: 0.68rem;
     font-weight: 700;
