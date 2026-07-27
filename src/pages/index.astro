@@ -368,6 +368,7 @@ function renderIlustracia(typ: string): string {
     <meta property="og:image" content={`${seo.url}og.png`} />
     <meta property="og:locale" content="sk_SK" />
     <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
+    <link rel="preload" as="image" href="/foto/dom-pod-lesom.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -402,9 +403,8 @@ function renderIlustracia(typ: string): string {
     </header>
 
     <main>
-      <!-- ── Hero ──────────────────────────────────────────────────── -->
+      <!-- ── Hero — skutočná fotografia miesta ─────────────────────── -->
       <section class="hero">
-        <div class="hero__honeycomb" aria-hidden="true"></div>
         <div class="container hero__inner">
           <div class="hero__text reveal">
             <p class="eyebrow">Horný Gemer · Soboty a nedele · Od {farma.zalozene}</p>
@@ -422,43 +422,6 @@ function renderIlustracia(typ: string): string {
             </div>
           </div>
 
-          <!-- Signature: honey dipper with a slow drip -->
-          <div class="hero__art reveal" aria-hidden="true">
-            <svg class="dipper" viewBox="0 0 220 320" role="img">
-              <title>Naberačka na med s kvapkou</title>
-              <!-- handle -->
-              <rect x="103" y="6" width="14" height="150" rx="7" fill="#8a5a2b" />
-              <rect x="103" y="6" width="6" height="150" rx="3" fill="#a9743b" />
-              <!-- dipper grooves -->
-              <g fill="#caa15f">
-                <ellipse cx="110" cy="168" rx="40" ry="13" />
-                <ellipse cx="110" cy="190" rx="40" ry="13" />
-                <ellipse cx="110" cy="212" rx="38" ry="12" />
-                <ellipse cx="110" cy="233" rx="34" ry="11" />
-                <ellipse cx="110" cy="252" rx="28" ry="10" />
-              </g>
-              <path d="M70 168 q40 130 40 130 q0 0 40 -130 z" fill="#d8a85a" opacity="0.0" />
-              <!-- honey coating -->
-              <path
-                d="M70 165 q0 60 40 100 q40 -40 40 -100 q-40 22 -80 0 z"
-                fill="url(#honeyGrad)"
-              />
-              <!-- the drip -->
-              <g class="drip">
-                <path d="M110 262 q-7 14 0 26 q7 -12 0 -26 z" fill="url(#honeyGrad)" />
-                <circle class="drip__bead" cx="110" cy="292" r="7" fill="#D98A2B" />
-              </g>
-              <defs>
-                <linearGradient id="honeyGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#E9C46A" />
-                  <stop offset="1" stop-color="#C57E1E" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <div class="seal hero__seal">
-              <span>BIO<small>Na Lúke</small></span>
-            </div>
-          </div>
         </div>
         <a href="#program" class="hero__scroll" aria-label="Prejsť na program">
           <span>Vojdite</span>
@@ -539,20 +502,6 @@ function renderIlustracia(typ: string): string {
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- ── Miesto (prvá skutočná fotografia) ────────────────────── -->
-      <section class="fotopas" aria-label="Miesto, kde sa deň deje">
-        <figure class="reveal">
-          <img
-            src="/foto/dom-pod-lesom.jpg"
-            alt="Drevený dom na lúke pod zalesnenými kopcami Horného Gemera"
-            width="1600"
-            height="1200"
-            loading="lazy"
-          />
-          <figcaption>Dom pod lesom, kde sa deň končí čajom a medom.</figcaption>
-        </figure>
       </section>
 
       <!-- ── Rezervácia ───────────────────────────────────────────── -->
@@ -865,13 +814,31 @@ function renderIlustracia(typ: string): string {
   /* ── Hero ───────────────────────────────────────────────────── */
   .hero {
     position: relative;
-    /* Úvod je celoobrazovkový „príchod" — zvyšok stránky je až pod ním */
+    /* Úvod je celoobrazovkový „príchod" — Otova fotografia domu pod lesom */
     min-height: calc(100svh - 72px);
     display: flex;
     align-items: center;
     padding: clamp(2rem, 5vw, 4rem) 0 clamp(4.5rem, 9vw, 7rem);
     overflow: hidden;
+    background:
+      linear-gradient(
+        to top,
+        rgba(28, 19, 10, 0.82),
+        rgba(28, 19, 10, 0.42) 48%,
+        rgba(20, 15, 10, 0.36)
+      ),
+      url('/foto/dom-pod-lesom.jpg') 35% 62% / cover no-repeat;
+    color: var(--beeswax);
   }
+  .hero .eyebrow { color: #E9C46A; }
+  .hero .hero__title { color: var(--beeswax); text-shadow: 0 2px 26px rgba(0, 0, 0, 0.45); }
+  .hero .hero__lead { color: rgba(251, 243, 226, 0.94); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4); }
+  .hero .btn--ghost {
+    border-color: rgba(251, 243, 226, 0.65);
+    color: var(--beeswax);
+    background: rgba(28, 19, 10, 0.25);
+  }
+  .hero .hero__scroll { color: rgba(251, 243, 226, 0.85); }
   .hero__inner { width: 100%; }
   .hero__scroll {
     position: absolute;
