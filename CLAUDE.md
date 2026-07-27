@@ -23,18 +23,29 @@ type-checking (`tsconfig.json` extends `astro/tsconfigs/strict`).
 
 ## Architecture
 
-The entire site is **one file**: `src/pages/index.astro`. Understanding its three
-parts is enough to work productively:
+The site is **bilingual** (SK at `/`, EN at `/en/`) and split into four files:
 
-1. **Content lives in frontmatter data objects** at the top (`farma`, `produkty`,
-   `kontakt`). To change any text, product, or contact detail, edit these objects
-   — not the markup below. This is the single source of truth for copy.
-2. **`renderIlustracia(typ)`** (also in frontmatter) returns inline **SVG strings**
-   for the product cards. There are deliberately **no external/raster images** in
-   the design — illustrations (honey jars, eggs, candle) and scenes (hen, bee) are
-   hand-drawn SVG so the site is fully self-contained and fast.
-3. **A single scoped `<style>` block** holds all page-specific CSS, using BEM-ish
-   class names (`.hero__title`, `.card__art`, etc.). Injected raw SVG (via
+- `src/components/Stranka.astro` — ALL markup, CSS and SVG, shared by both
+  languages. Takes one prop `t` (the content object). Language-independent
+  data also lives here (`objednavka.iban`/`majitelUctu` for the payment QR).
+- `src/obsah/sk.ts` — every Slovak text, exported as `sk`; its shape is the
+  `Obsah` type.
+- `src/obsah/en.ts` — English texts, typed `Obsah`, so `astro check` fails if
+  a translation key is missing. **Any copy change must be made in BOTH files.**
+- `src/pages/index.astro` + `src/pages/en/index.astro` — thin shells that
+  render `<Stranka t={...} />`.
+
+Understanding three things is enough to work productively:
+
+1. **Content lives in `src/obsah/*.ts`** (`farma`, `den`, `produkty`,
+   `kontakt`, …). To change any text, edit these objects — never the markup.
+2. **`renderIlustracia(typ)`** (in `Stranka.astro`'s frontmatter) returns inline
+   **SVG strings** for the cards — hand-drawn illustrations (jars, forest, ensō,
+   hive…). The only raster images are Oto's own photographs in `public/foto/`
+   (always strip EXIF/GPS via sharp before adding one; originals stay in the
+   gitignored `received_images/`).
+3. **A single scoped `<style>` block** in `Stranka.astro` holds all
+   page-specific CSS, using BEM-ish class names (`.hero__title`, `.card__art`). Injected raw SVG (via
    `set:html`) is NOT scoped by Astro — style it with `wrapper :global(svg)`
    selectors, never bare descendant selectors.
 
